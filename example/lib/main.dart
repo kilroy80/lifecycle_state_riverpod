@@ -166,7 +166,7 @@ class MyAppViewModel extends ViewModelNotifier<MyAppViewState> {
   }
 }
 
-class MyAppViewState extends ViewState {
+class MyAppViewState extends ViewModelState {
   MyAppViewState({
     required this.index,
   });
@@ -201,7 +201,7 @@ class SecondPageViewModel extends ViewModelNotifier<SecondPageViewState> {
   }
 }
 
-class SecondPageViewState extends ViewState {
+class SecondPageViewState extends ViewModelState {
   SecondPageViewState({
     required this.index,
   });
