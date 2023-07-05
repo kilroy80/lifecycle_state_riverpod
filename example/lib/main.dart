@@ -155,7 +155,6 @@ class MyAppViewModel extends ViewModelNotifier<MyAppViewState> {
 
   @override
   void disposeProvider() {
-    super.disposeProvider();
     ref.invalidate(mainScreenProvider);
   }
 }
@@ -190,7 +189,6 @@ class SecondPageViewModel extends ViewModelNotifier<SecondPageViewState> {
 
   @override
   void disposeProvider() {
-    super.disposeProvider();
     ref.invalidate(secondPageProvider);
   }
 }

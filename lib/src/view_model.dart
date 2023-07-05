@@ -9,9 +9,5 @@ abstract class ViewModelNotifier<T> extends StateNotifier<T> {
 
   final Ref ref;
 
-  @mustCallSuper
-  @mustBeOverridden
-  void disposeProvider() {
-    super.dispose();
-  }
+  void disposeProvider();
 }
