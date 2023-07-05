@@ -67,8 +67,8 @@ abstract class LifeCycleState<T extends ConsumerStatefulWidget,
       WidgetsBinding.instance.removeObserver(this);
     }
     LifeCycleNavigator.instance.removeObserver(this);
-    _viewModel.disposeProvider();
     super.dispose();
+    _viewModel.disposeProvider();
   }
 
   @override
