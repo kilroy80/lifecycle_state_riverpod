@@ -26,7 +26,7 @@ abstract class ConsumerViewModelState
   @mustCallSuper
   @override
   void dispose() {
-    super.dispose();
     viewModel.disposeProvider();
+    super.dispose();
   }
 }
