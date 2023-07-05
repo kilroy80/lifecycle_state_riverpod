@@ -1,14 +1,20 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lifecycle_state_riverpod/src/view_model.dart';
+import 'package:lifecycle_state_riverpod/src/view_state.dart';
 
-abstract class ViewModelState<T extends ConsumerStatefulWidget, VM extends ViewModelNotifier>
-    extends State<T> {
+abstract class ConsumerViewModelState
+    <T extends ConsumerStatefulWidget, VM extends ViewModelNotifier, ST extends ViewState>
+    extends ConsumerState<T> {
 
   late final VM _viewModel;
   VM get viewModel => _viewModel;
 
+  late final ST _viewState;
+  ST get viewState => _viewState;
+
   VM createViewModelNotifier();
+  ST createViewState();
 
   @mustCallSuper
   @override
@@ -17,6 +23,7 @@ abstract class ViewModelState<T extends ConsumerStatefulWidget, VM extends ViewM
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _viewModel = createViewModelNotifier();
+      _viewState = createViewState();
     });
   }
 

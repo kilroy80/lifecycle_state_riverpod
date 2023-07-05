@@ -166,8 +166,8 @@ class MyAppViewModel extends ViewModelNotifier<MyAppViewState> {
   }
 }
 
-class MyAppViewState {
-  const MyAppViewState({
+class MyAppViewState extends ViewState {
+  MyAppViewState({
     required this.index,
   });
 
@@ -201,15 +201,15 @@ class SecondPageViewModel extends ViewModelNotifier<SecondPageViewState> {
   }
 }
 
-class SecondPageViewState {
-  const SecondPageViewState({
+class SecondPageViewState extends ViewState {
+  SecondPageViewState({
     required this.index,
   });
 
   final int index;
 
   factory SecondPageViewState.empty() {
-    return const SecondPageViewState(index: 0);
+    return SecondPageViewState(index: 0);
   }
 
   SecondPageViewState copyWith({

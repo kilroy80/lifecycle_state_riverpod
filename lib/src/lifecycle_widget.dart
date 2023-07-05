@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lifecycle_state_riverpod/src/lifecycle_navigator.dart';
 import 'package:lifecycle_state_riverpod/src/view_model.dart';
+import 'package:lifecycle_state_riverpod/src/view_state.dart';
 
 abstract class LifeCycleStatefulWidget extends ConsumerStatefulWidget {
   const LifeCycleStatefulWidget({Key? key, required this.routeName})
@@ -11,15 +12,15 @@ abstract class LifeCycleStatefulWidget extends ConsumerStatefulWidget {
 }
 
 abstract class LifeCycleState<T extends ConsumerStatefulWidget,
-    VM extends ViewModelNotifier, STATE>
+    VM extends ViewModelNotifier, ST extends ViewState>
     extends ConsumerState<T>
   with WidgetsBindingObserver, LifeCycleObserver {
 
   late final VM _viewModel;
   VM get viewModel => _viewModel;
 
-  late final STATE _viewState;
-  STATE get viewState => _viewState;
+  late final ST _viewState;
+  ST get viewState => _viewState;
 
   WidgetVisibility visibility = WidgetVisibility.visible;
 
@@ -30,7 +31,7 @@ abstract class LifeCycleState<T extends ConsumerStatefulWidget,
   String get routeName;
 
   VM createViewModelNotifier();
-  STATE createViewState();
+  ST createViewState();
 
   void onAppResume();
 
