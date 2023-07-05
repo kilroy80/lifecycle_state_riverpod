@@ -20,10 +20,13 @@ class MyApp extends ConsumerStatefulWidget {
   ConsumerState<MyApp> createState() => _MyAppState();
 }
 
-class _MyAppState extends LifeCycleState<MyApp, MyAppViewModel> {
+class _MyAppState extends LifeCycleState<MyApp, MyAppViewModel, MyAppViewState> {
 
   @override
   MyAppViewModel createViewModelNotifier() => ref.watch(mainScreenProvider.notifier);
+
+  @override
+  MyAppViewState createViewState() => ref.watch(mainScreenProvider);
 
   @override
   void onAppPause() {
@@ -90,10 +93,14 @@ class SecondPage extends ConsumerStatefulWidget {
   ConsumerState<SecondPage> createState() => _SecondPageState();
 }
 
-class _SecondPageState extends LifeCycleState<SecondPage, SecondPageViewModel> {
+class _SecondPageState
+    extends LifeCycleState<SecondPage, SecondPageViewModel, SecondPageViewState> {
 
   @override
   SecondPageViewModel createViewModelNotifier() => ref.watch(secondPageProvider.notifier);
+
+  @override
+  SecondPageViewState createViewState() => ref.watch(secondPageProvider);
 
   @override
   void onAppPause() {
@@ -201,9 +208,9 @@ class SecondPageViewState {
 
   final int index;
 
-  SecondPageViewState.empty() : this(
-    index: 0,
-  );
+  factory SecondPageViewState.empty() {
+    return const SecondPageViewState(index: 0);
+  }
 
   SecondPageViewState copyWith({
     int? index,

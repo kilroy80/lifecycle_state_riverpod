@@ -10,12 +10,16 @@ abstract class LifeCycleStatefulWidget extends ConsumerStatefulWidget {
   final String routeName;
 }
 
-abstract class LifeCycleState<T extends ConsumerStatefulWidget, VM extends ViewModelNotifier>
+abstract class LifeCycleState<T extends ConsumerStatefulWidget,
+    VM extends ViewModelNotifier, STATE>
     extends ConsumerState<T>
   with WidgetsBindingObserver, LifeCycleObserver {
 
   late final VM _viewModel;
   VM get viewModel => _viewModel;
+
+  late final STATE _viewState;
+  STATE get viewState => _viewState;
 
   WidgetVisibility visibility = WidgetVisibility.visible;
 
@@ -26,6 +30,7 @@ abstract class LifeCycleState<T extends ConsumerStatefulWidget, VM extends ViewM
   String get routeName;
 
   VM createViewModelNotifier();
+  STATE createViewState();
 
   void onAppResume();
 
@@ -44,9 +49,10 @@ abstract class LifeCycleState<T extends ConsumerStatefulWidget, VM extends ViewM
     if (wantAppLifeCycle) {
       WidgetsBinding.instance.addObserver(this);
     }
-    
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _viewModel = createViewModelNotifier();
+      _viewState = createViewState();
       onWidgetReady();
     });
 
@@ -60,7 +66,7 @@ abstract class LifeCycleState<T extends ConsumerStatefulWidget, VM extends ViewM
       WidgetsBinding.instance.removeObserver(this);
     }
     LifeCycleNavigator.instance.removeObserver(this);
-    viewModel.disposeProvider();
+    _viewModel.disposeProvider();
     super.dispose();
   }
 
