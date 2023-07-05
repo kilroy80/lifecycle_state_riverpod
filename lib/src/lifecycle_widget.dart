@@ -40,12 +40,13 @@ abstract class LifeCycleState<T extends ConsumerStatefulWidget, VM extends ViewM
   @override
   void initState() {
     super.initState();
-    _viewModel = createViewModelNotifier();
 
     if (wantAppLifeCycle) {
       WidgetsBinding.instance.addObserver(this);
     }
+    
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      _viewModel = createViewModelNotifier();
       onWidgetReady();
     });
 

@@ -14,7 +14,10 @@ abstract class ViewModelState<T extends ConsumerStatefulWidget, VM extends ViewM
   @override
   void initState() {
     super.initState();
-    _viewModel = createViewModelNotifier();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _viewModel = createViewModelNotifier();
+    });
   }
 
   @mustCallSuper
