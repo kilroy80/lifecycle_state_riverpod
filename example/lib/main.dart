@@ -23,7 +23,7 @@ class MyApp extends ConsumerStatefulWidget {
 class _MyAppState extends LifeCycleState<MyApp, MyAppViewModel> {
 
   @override
-  MyAppViewModel createViewModel() => MyAppViewModel();
+  MyAppViewModel createViewModelNotifier() => ref.watch(mainScreenProvider.notifier);
 
   @override
   void onAppPause() {
@@ -93,7 +93,7 @@ class SecondPage extends ConsumerStatefulWidget {
 class _SecondPageState extends LifeCycleState<SecondPage, SecondPageViewModel> {
 
   @override
-  SecondPageViewModel createViewModel() => SecondPageViewModel();
+  SecondPageViewModel createViewModelNotifier() => ref.watch(secondPageProvider.notifier);
 
   @override
   void onAppPause() {
@@ -145,16 +145,71 @@ class _SecondPageState extends LifeCycleState<SecondPage, SecondPageViewModel> {
   }
 }
 
-class MyAppViewModel extends ViewModel {
+final mainScreenProvider = StateNotifierProvider<MyAppViewModel, MyAppViewState>((ref) {
+  return MyAppViewModel(ref);
+});
+
+class MyAppViewModel extends ViewModelNotifier<MyAppViewState> {
+  MyAppViewModel(ref) : super(ref: ref, state: MyAppViewState.empty());
+
   @override
-  void dispose() {
+  void disposeProvider() {
+    super.disposeProvider();
+    ref.invalidate(mainScreenProvider);
   }
 }
 
-class SecondPageViewModel extends ViewModel {
-  @override
-  void dispose() {
+class MyAppViewState {
+  const MyAppViewState({
+    required this.index,
+  });
+
+  final int index;
+
+  MyAppViewState.empty() : this(
+    index: 0,
+  );
+
+  MyAppViewState copyWith({
+    int? index,
+  }) {
+    return MyAppViewState(
+      index: index ?? this.index,
+    );
   }
 }
 
+final secondPageProvider = StateNotifierProvider<SecondPageViewModel,
+    SecondPageViewState>((ref) {
+  return SecondPageViewModel(ref);
+});
 
+class SecondPageViewModel extends ViewModelNotifier<SecondPageViewState> {
+  SecondPageViewModel(ref) : super(ref: ref, state: SecondPageViewState.empty());
+
+  @override
+  void disposeProvider() {
+    super.disposeProvider();
+    ref.invalidate(secondPageProvider);
+  }
+}
+
+class SecondPageViewState {
+  const SecondPageViewState({
+    required this.index,
+  });
+
+  final int index;
+
+  SecondPageViewState.empty() : this(
+    index: 0,
+  );
+
+  SecondPageViewState copyWith({
+    int? index,
+  }) {
+    return SecondPageViewState(
+      index: index ?? this.index,
+    );
+  }
+}

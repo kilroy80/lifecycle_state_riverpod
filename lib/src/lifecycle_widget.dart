@@ -10,7 +10,7 @@ abstract class LifeCycleStatefulWidget extends ConsumerStatefulWidget {
   final String routeName;
 }
 
-abstract class LifeCycleState<T extends ConsumerStatefulWidget, VM extends ViewModel>
+abstract class LifeCycleState<T extends ConsumerStatefulWidget, VM extends ViewModelNotifier>
     extends ConsumerState<T>
   with WidgetsBindingObserver, LifeCycleObserver {
 
@@ -25,7 +25,7 @@ abstract class LifeCycleState<T extends ConsumerStatefulWidget, VM extends ViewM
   @protected
   String get routeName;
 
-  VM createViewModel();
+  VM createViewModelNotifier();
 
   void onAppResume();
 
@@ -40,7 +40,7 @@ abstract class LifeCycleState<T extends ConsumerStatefulWidget, VM extends ViewM
   @override
   void initState() {
     super.initState();
-    _viewModel = createViewModel();
+    _viewModel = createViewModelNotifier();
 
     if (wantAppLifeCycle) {
       WidgetsBinding.instance.addObserver(this);
@@ -59,7 +59,7 @@ abstract class LifeCycleState<T extends ConsumerStatefulWidget, VM extends ViewM
       WidgetsBinding.instance.removeObserver(this);
     }
     LifeCycleNavigator.instance.removeObserver(this);
-    viewModel.dispose();
+    viewModel.disposeProvider();
     super.dispose();
   }
 

@@ -1,8 +1,17 @@
-abstract class ViewModel {
-  void init() {}
-  void onMount() {}
-  void onResume() {}
-  void onPause() {}
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:meta/meta.dart';
 
-  void dispose();
+abstract class ViewModelNotifier<T> extends StateNotifier<T> {
+  ViewModelNotifier({
+    required this.ref,
+    required T state,
+  }) : super(state);
+
+  final Ref ref;
+
+  @mustCallSuper
+  @mustBeOverridden
+  void disposeProvider() {
+    super.dispose();
+  }
 }
