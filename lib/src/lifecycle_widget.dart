@@ -12,15 +12,12 @@ abstract class LifeCycleStatefulWidget extends ConsumerStatefulWidget {
 }
 
 abstract class LifeCycleState<T extends ConsumerStatefulWidget,
-    VM extends ViewModelNotifier, ST extends ViewModelState>
+    VM extends ViewModelNotifier>
     extends ConsumerState<T>
   with WidgetsBindingObserver, LifeCycleObserver {
 
   late final VM _viewModel;
   VM get viewModel => _viewModel;
-
-  late final ST _viewState;
-  ST get viewState => _viewState;
 
   WidgetVisibility visibility = WidgetVisibility.visible;
 
@@ -31,7 +28,6 @@ abstract class LifeCycleState<T extends ConsumerStatefulWidget,
   String get routeName;
 
   VM createViewModelNotifier();
-  ST createViewState();
 
   void onAppResume();
 
@@ -62,7 +58,6 @@ abstract class LifeCycleState<T extends ConsumerStatefulWidget,
   void didChangeDependencies() {
     super.didChangeDependencies();
     _viewModel = createViewModelNotifier();
-    _viewState = createViewState();
   }
 
   @mustCallSuper

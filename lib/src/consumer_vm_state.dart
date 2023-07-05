@@ -5,18 +5,13 @@ import 'package:lifecycle_state_riverpod/src/view_model_state.dart';
 
 abstract class ConsumerViewModelState
     <T extends ConsumerStatefulWidget,
-    VM extends ViewModelNotifier,
-    ST extends ViewModelState>
+    VM extends ViewModelNotifier>
     extends ConsumerState<T> {
 
   late final VM _viewModel;
   VM get viewModel => _viewModel;
 
-  late final ST _viewState;
-  ST get viewState => _viewState;
-
   VM createViewModelNotifier();
-  ST createViewState();
 
   @mustCallSuper
   @override
@@ -25,7 +20,6 @@ abstract class ConsumerViewModelState
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _viewModel = createViewModelNotifier();
-      _viewState = createViewState();
     });
   }
 

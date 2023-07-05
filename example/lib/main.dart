@@ -20,13 +20,10 @@ class MyApp extends ConsumerStatefulWidget {
   ConsumerState<MyApp> createState() => _MyAppState();
 }
 
-class _MyAppState extends LifeCycleState<MyApp, MyAppViewModel, MyAppViewState> {
+class _MyAppState extends LifeCycleState<MyApp, MyAppViewModel> {
 
   @override
   MyAppViewModel createViewModelNotifier() => ref.watch(mainScreenProvider.notifier);
-
-  @override
-  MyAppViewState createViewState() => ref.watch(mainScreenProvider);
 
   @override
   void onAppPause() {
@@ -94,13 +91,10 @@ class SecondPage extends ConsumerStatefulWidget {
 }
 
 class _SecondPageState
-    extends LifeCycleState<SecondPage, SecondPageViewModel, SecondPageViewState> {
+    extends LifeCycleState<SecondPage, SecondPageViewModel> {
 
   @override
   SecondPageViewModel createViewModelNotifier() => ref.watch(secondPageProvider.notifier);
-
-  @override
-  SecondPageViewState createViewState() => ref.watch(secondPageProvider);
 
   @override
   void onAppPause() {
