@@ -52,12 +52,17 @@ abstract class LifeCycleState<T extends ConsumerStatefulWidget,
     }
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _viewModel = createViewModelNotifier();
-      _viewState = createViewState();
       onWidgetReady();
     });
 
     LifeCycleNavigator.instance.addObserver(routeName, (widget).toString(), this);
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _viewModel = createViewModelNotifier();
+    _viewState = createViewState();
   }
 
   @mustCallSuper
