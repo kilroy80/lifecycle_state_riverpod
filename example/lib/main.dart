@@ -154,8 +154,12 @@ class MyAppViewModel extends ViewModelNotifier<MyAppViewState> {
   MyAppViewModel(ref) : super(ref: ref, state: MyAppViewState.empty());
 
   @override
-  void disposeProvider() {
+  void release() {
     ref.invalidate(mainScreenProvider);
+  }
+
+  @override
+  void cancel() {
   }
 }
 
@@ -188,8 +192,12 @@ class SecondPageViewModel extends ViewModelNotifier<SecondPageViewState> {
   SecondPageViewModel(ref) : super(ref: ref, state: SecondPageViewState.empty());
 
   @override
-  void disposeProvider() {
+  void release() {
     ref.invalidate(secondPageProvider);
+  }
+
+  @override
+  void cancel() {
   }
 }
 

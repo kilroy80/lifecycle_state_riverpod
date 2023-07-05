@@ -1,7 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lifecycle_state_riverpod/src/view_model.dart';
-import 'package:lifecycle_state_riverpod/src/view_model_state.dart';
 
 abstract class ConsumerViewModelState
     <T extends ConsumerStatefulWidget,
@@ -26,7 +25,7 @@ abstract class ConsumerViewModelState
   @mustCallSuper
   @override
   void dispose() {
-    viewModel.disposeProvider();
+    viewModel.release();
     super.dispose();
   }
 }

@@ -9,5 +9,6 @@ abstract class ViewModelNotifier<T> extends StateNotifier<T> {
 
   final Ref ref;
 
-  void disposeProvider();
+  void release();
+  void cancel();
 }
