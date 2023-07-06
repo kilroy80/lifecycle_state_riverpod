@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lifecycle_state_riverpod/src/lifecycle_navigator.dart';
-import 'package:lifecycle_state_riverpod/src/view_model.dart';
+import 'package:lifecycle_state_riverpod/src/view_model_mixin.dart';
 
 abstract class LifeCycleStatefulWidget extends ConsumerStatefulWidget {
   const LifeCycleStatefulWidget({Key? key, required this.routeName})
@@ -11,7 +11,7 @@ abstract class LifeCycleStatefulWidget extends ConsumerStatefulWidget {
 }
 
 abstract class LifeCycleState<T extends ConsumerStatefulWidget,
-    VM extends ViewModelNotifier>
+    VM extends ViewModelMixin>
     extends ConsumerState<T>
   with WidgetsBindingObserver, LifeCycleObserver {
 

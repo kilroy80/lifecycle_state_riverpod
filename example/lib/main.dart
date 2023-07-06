@@ -61,11 +61,6 @@ class _MyAppState extends LifeCycleState<MyApp, MyAppViewModel> {
   bool get wantAppLifeCycle => true;
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -126,11 +121,6 @@ class _SecondPageState
   }
 
   @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
   String get routeName => '/second';
 
   @override
@@ -150,8 +140,10 @@ final mainScreenProvider = StateNotifierProvider<MyAppViewModel, MyAppViewState>
   return MyAppViewModel(ref);
 });
 
-class MyAppViewModel extends ViewModelNotifier<MyAppViewState> {
-  MyAppViewModel(ref) : super(ref: ref, state: MyAppViewState.empty());
+class MyAppViewModel extends StateNotifier<MyAppViewState> with ViewModelMixin {
+  MyAppViewModel(this.ref) : super(MyAppViewState.empty());
+
+  final Ref ref;
 
   @override
   void release() {
@@ -163,7 +155,7 @@ class MyAppViewModel extends ViewModelNotifier<MyAppViewState> {
   }
 }
 
-class MyAppViewState extends ViewModelState {
+class MyAppViewState {
   MyAppViewState({
     required this.index,
   });
@@ -188,8 +180,10 @@ final secondPageProvider = StateNotifierProvider<SecondPageViewModel,
   return SecondPageViewModel(ref);
 });
 
-class SecondPageViewModel extends ViewModelNotifier<SecondPageViewState> {
-  SecondPageViewModel(ref) : super(ref: ref, state: SecondPageViewState.empty());
+class SecondPageViewModel extends StateNotifier<SecondPageViewState> with ViewModelMixin {
+  SecondPageViewModel(this.ref) : super(SecondPageViewState.empty());
+
+  final Ref ref;
 
   @override
   void release() {
@@ -201,7 +195,7 @@ class SecondPageViewModel extends ViewModelNotifier<SecondPageViewState> {
   }
 }
 
-class SecondPageViewState extends ViewModelState {
+class SecondPageViewState {
   SecondPageViewState({
     required this.index,
   });

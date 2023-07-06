@@ -1,10 +1,10 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:lifecycle_state_riverpod/src/view_model.dart';
+import 'package:lifecycle_state_riverpod/src/view_model_mixin.dart';
 
 abstract class ConsumerViewModelState
     <T extends ConsumerStatefulWidget,
-    VM extends ViewModelNotifier>
+    VM extends ViewModelMixin>
     extends ConsumerState<T> {
 
   late final VM _viewModel;
